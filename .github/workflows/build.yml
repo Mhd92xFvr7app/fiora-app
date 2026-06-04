@@ -10,13 +10,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Install Cordova
-        run: npm install -g cordova
       - name: Install Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Install Cordova
+        run: npm install -g cordova
       - name: Create Cordova project
         run: |
           cordova create app com.fiora.app فيورا
@@ -33,10 +33,9 @@ jobs:
           cp fiora.keystore app/fiora.keystore
       - name: Build Release APK
         working-directory: app
-        run: |
-          cordova build android --release -- --keystore=fiora.keystore --storePassword=fiora123456 --alias=fiora --password=fiora123456
+        run: cordova build android --release -- --keystore=fiora.keystore --storePassword=fiora123456 --alias=fiora --password=fiora123456
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: fiora-release
-          path: app/platforms/android/app/build/outputs/apk/release/app-release.apk
+          path: app/platforms/android/app/build/outputs/apk/release/*.apk
