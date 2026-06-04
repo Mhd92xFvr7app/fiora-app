@@ -17,6 +17,7 @@ jobs:
           cordova create app com.fiora.app فيورا
           cp فيورا-fixed.html app/www/فيورا-fixed.html
           cp config.xml app/config.xml
+          cp logo_512x512.png app/logo_512x512.png
           rm app/www/index.html
       - name: Add Android platform
         working-directory: app
