@@ -9,6 +9,7 @@
   <allow-intent href="https://*/*" />
   <platform name="android">
     <allow-intent href="market:*" />
+    <icon src="logo_512x512.png" />
   </platform>
   <preference name="android-minSdkVersion" value="22" />
   <preference name="android-targetSdkVersion" value="33" />
