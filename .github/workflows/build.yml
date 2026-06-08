@@ -17,20 +17,16 @@ jobs:
           distribution: 'temurin'
       - name: Install Cordova
         run: npm install -g cordova
-      - name: Create Cordova project
+      - name: Build APK
         run: |
           cordova create app com.fiora.app فيورا
           cp "فيورا-fixed.html" app/www/index.html
           cp config.xml app/config.xml
           cp logo_512x512.png app/logo_512x512.png
-          cd app && cordova platform add android
-      - name: Generate Keystore
-        run: |
+          cd app
+          cordova platform add android
           keytool -genkey -v -keystore fiora.keystore -alias fiora -keyalg RSA -keysize 2048 -validity 10000 -storepass fiora123456 -keypass fiora123456 -dname "CN=Fiora,OU=Fiora,O=Fiora,L=City,S=State,C=US"
-          cp fiora.keystore app/fiora.keystore
-      - name: Build Release APK
-        working-directory: app
-        run: cordova build android --release --packageType=apk -- --keystore=fiora.keystore --storePassword=fiora123456 --alias=fiora --password=fiora123456
+          cordova build android --release --packageType=apk -- --keystore=fiora.keystore --storePassword=fiora123456 --alias=fiora --password=fiora123456
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
